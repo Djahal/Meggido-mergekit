@@ -55,7 +55,7 @@ def get_stripped_tokenizer(
         path.path,
         revision=path.revision,
         trust_remote_code=trust_remote_code,
-        use_fast=True,
+        use_fast=False,
     )
     vocab_size = get_vocab_size(path, trust_remote_code=trust_remote_code) or len(
         tokenizer.get_vocab()
@@ -153,7 +153,7 @@ def build_union_tokenizer(
     with tempfile.TemporaryDirectory() as p:
         base_tok.save_pretrained(p, legacy_format=False, safe_serialization=True)
         res = transformers.AutoTokenizer.from_pretrained(
-            p, use_fast=True, trust_remote_code=trust_remote_code
+            p, use_fast=False, trust_remote_code=trust_remote_code
         )
 
     orig_base_vocab = base_tok.get_vocab()
