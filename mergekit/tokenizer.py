@@ -197,6 +197,7 @@ def build_tokenizer(
                 model.model.path,
                 revision=model.model.revision,
                 trust_remote_code=trust_remote_code,
+                use_fast=False,
             )
         except Exception as e:
             logging.error(e)
