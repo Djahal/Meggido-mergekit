@@ -35,7 +35,7 @@ def get_vocab_size(model_path: ModelPath, trust_remote_code: bool) -> Optional[i
             model_path.path,
             revision=model_path.revision,
             trust_remote_code=trust_remote_code,
-            use_fast=False
+            add_prefix_space=False
         )
         return cfg.vocab_size
     except Exception as e:
@@ -56,7 +56,7 @@ def get_stripped_tokenizer(
         path.path,
         revision=path.revision,
         trust_remote_code=trust_remote_code,
-        use_fast=False
+        add_prefix_space=False
     )
     vocab_size = get_vocab_size(path, trust_remote_code=trust_remote_code) or len(
         tokenizer.get_vocab()
@@ -154,7 +154,7 @@ def build_union_tokenizer(
     with tempfile.TemporaryDirectory() as p:
         base_tok.save_pretrained(p, legacy_format=False, safe_serialization=True)
         res = transformers.AutoTokenizer.from_pretrained(
-            p, use_fast=False, trust_remote_code=trust_remote_code
+            p, use_fast=False, trust_remote_code=trust_remote_code, add_prefix_space=False
         )
 
     orig_base_vocab = base_tok.get_vocab()
@@ -183,7 +183,7 @@ def build_tokenizer(
 
     #
     tokenizer_base = get_stripped_tokenizer(
-        base_model.model, use_fast=False, trust_remote_code=trust_remote_code,
+        base_model.model, use_fast=False, trust_remote_code=trust_remote_code, add_prefix_space=False
     )
 
     # load all tokenizers
@@ -198,7 +198,7 @@ def build_tokenizer(
                 model.model.path,
                 revision=model.model.revision,
                 trust_remote_code=trust_remote_code,
-                use_fast=False
+                add_prefix_space=False
             )
         except Exception as e:
             logging.error(e)
@@ -221,6 +221,7 @@ def build_tokenizer(
         tokenizer_out = transformers.AutoTokenizer.from_pretrained(
             tokenizer_source[len("model:") :],
             trust_remote_code=trust_remote_code,
+            add_prefix_space=False
         )
     else:
         raise RuntimeError(f"Unimplemented tokenizer source: {tokenizer_source}")
