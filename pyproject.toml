@@ -20,7 +20,7 @@ dependencies = [
     "transformers==4.36.2",
     "huggingface_hub",
     "peft",
-    "typing-extensions==4.5.0",
+    "typing-extensions",
     "sentencepiece",
     "protobuf",
     "tokenizers==0.15.0",
