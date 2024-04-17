@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mergekit-slow-tokenizer"
+name = "Meggido-mergekit"
 description = "Tools for merging pre-trained large language models"
 readme = "README.md"
 license = { text = "LGPL-3.0-or-later" }
@@ -17,13 +17,13 @@ dependencies = [
     "accelerate~=0.27.2",
     "pydantic==2.6.2",
     "immutables==0.20",
-    "transformers==4.36.2",
+    "transformers==4.38.2",
     "huggingface_hub",
     "peft",
     "typing-extensions",
     "sentencepiece",
     "protobuf",
-    "tokenizers==0.15.0",
+    # "tokenizers==0.15.0",
 ]
 
 [project.optional-dependencies]
