@@ -36,6 +36,7 @@ import immutables
 import peft
 import torch
 import transformers
+from huggingface_hub.utils import are_progress_bars_disabled, disable_progress_bars, enable_progress_bars
 from pydantic import BaseModel, model_serializer, model_validator
 from pydantic_core import core_schema
 from transformers import AutoConfig, PretrainedConfig
@@ -145,6 +146,7 @@ class ModelReference(BaseModel, frozen=True):
             else:
                 patterns.append("*.bin")
 
+            huggingface_hub.utils.disable_progress_bars()
             path = huggingface_hub.snapshot_download(
                 path,
                 revision=self.model.revision,
